@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Market_price extends Model
 {
@@ -19,5 +20,10 @@ class Market_price extends Model
     public function agriculturalProduct()
     {
         return $this->belongsTo(Agricultural_product::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

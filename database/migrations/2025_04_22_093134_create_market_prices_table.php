@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('market_prices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('agricultural_product_id')->constrained('agricultural_products');
-            $table->decimal('wholesale_price')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');            $table->decimal('wholesale_price')->nullable();
             $table->decimal('retail_price')->nullable();
             $table->decimal('quantity_available')->default(0);
             $table->boolean('is_organic')->default(true);
