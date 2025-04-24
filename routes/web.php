@@ -2,13 +2,24 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return redirect('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/dashboard', function (Request $request) {
+    $wilaya = $request->get('wilaya', 'Mwanza');
+
+    $response = Http::get('https://api.weatherapi.com/v1/current.json', [
+        'key' => env('WEATHER_API_KEY'),
+        'q' => $wilaya . ',Tanzania',
+    ]);
+    $weather = $response->json();
+
+
+
+    return view('dashboard', ['weather' => $weather , 'wilaya' => $wilaya]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
