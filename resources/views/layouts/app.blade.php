@@ -26,8 +26,7 @@
                 <nav x-cloak class="fixed left-0 z-30 flex h-svh w-60 shrink-0 flex-col border-r border-neutral-300 bg-neutral-50 p-4 transition-transform duration-300 md:w-64 md:translate-x-0 md:relative dark:border-neutral-700 dark:bg-neutral-900" x-bind:class="sidebarIsOpen ? 'translate-x-0' : '-translate-x-60'" aria-label="sidebar navigation">
                     <!-- logo  -->
                     <a href="/" class="ml-2 w-fit text-2xl font-bold text-neutral-900 dark:text-white">
-                        <span class="sr-only">homepage</span>
-                        <p>LOGO</p>
+                        <x-application-logo  />
                     </a>
 
 
@@ -68,26 +67,57 @@
 
                         <!-- breadcrumbs  -->
                         <nav class="hidden md:inline-block text-sm font-medium text-neutral-600 dark:text-neutral-300" aria-label="breadcrumb">
+                            @php
+                                $segments = request()->segments();
+                                $url = url('/');
+                            @endphp
+
                             <ol class="flex flex-wrap items-center gap-1">
+                                {{-- Home always first --}}
                                 <li class="flex items-center gap-1">
-                                    <a href="#" class="hover:text-neutral-900 dark:hover:text-white">Dashboard</a>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" class="size-4" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
-                                    </svg>
+                                    <a href="{{ url('/') }}" class="hover:text-neutral-900 dark:hover:text-white">Home</a>
+                                    @if(count($segments))
+                                        <x-heroicon-o-chevron-right class="w-4 h-4"/>
+                                    @endif
                                 </li>
 
-                                <li class="flex items-center gap-1 font-bold text-neutral-900 dark:text-white" aria-current="page">Marketing</li>
+                                @foreach($segments as $i => $segment)
+                                    @php
+                                        // Build up the URL to this segment
+                                        $url .= '/'.$segment;
+
+                                        // Turn “user-profile” → “User Profile”
+                                        $label = str()->of($segment)
+                                                    ->replace(['-', '_'], ' ')
+                                                    ->title();
+                                    @endphp
+
+                                    {{-- If it’s the last segment, no link & bold --}}
+                                    @if($loop->last)
+                                        <li class="flex items-center gap-1 font-bold text-neutral-900 dark:text-white" aria-current="page">
+                                            {{ $label }}
+                                        </li>
+                                    @else
+                                        <li class="flex items-center gap-1">
+                                            <a href="{{ $url }}" class="hover:text-neutral-900 dark:hover:text-white">
+                                                {{ $label }}
+                                            </a>
+                                            <x-heroicon-o-chevron-right class="w-4 h-4"/>
+                                        </li>
+                                    @endif
+                                @endforeach
                             </ol>
+
                         </nav>
 
 
                         <!-- Profile Menu  -->
                         <div x-data="{ userDropdownIsOpen: false }" class="relative" x-on:keydown.esc.window="userDropdownIsOpen = false">
                             <button type="button" class="flex w-full items-center rounded-sm gap-2 p-2 text-left text-neutral-600 hover:bg-black/5 hover:text-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:outline-white" x-bind:class="userDropdownIsOpen ? 'bg-black/10 dark:bg-white/10' : ''" aria-haspopup="true" x-on:click="userDropdownIsOpen = ! userDropdownIsOpen" x-bind:aria-expanded="userDropdownIsOpen">
-                                <img src="https://penguinui.s3.amazonaws.com/component-assets/avatar-7.webp" class="size-8 object-cover rounded-sm" alt="avatar" aria-hidden="true"/>
+                                <x-heroicon-c-user class="h-10 w-10 dark:text-white text-black"/>
                                 <div class="hidden md:flex flex-col">
-                                    <span class="text-sm font-bold text-neutral-900 dark:text-white">Alex Martinez</span>
-                                    <span class="text-xs" aria-hidden="true">@alexmartinez</span>
+                                    <span class="text-sm font-bold text-neutral-900 dark:text-white">{{auth()->user()->name}}</span>
+                                    <span class="text-xs" aria-hidden="true">{{auth()->user()->email}}</span>
                                     <span class="sr-only">profile settings</span>
                                 </div>
                             </button>
