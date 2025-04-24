@@ -9,7 +9,7 @@
             </select>
         </form>
 
-        <div class="bg-white rounded-xl shadow p-6">
+        <div class="bg-white rounded-xl shadow p-6 border border-black dark:border-white">
             <h2 class="text-xl font-semibold mb-2">Hali ya Hewa - {{ $wilaya }}</h2>
 
             @if(isset($weather['current']))
