@@ -25,6 +25,7 @@ class User extends Authenticatable
         'receive_alerts',
         'alert_frequency',
         'active',
+        'role_id'
     ];
 
     /**
