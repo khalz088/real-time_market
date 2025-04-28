@@ -43,24 +43,27 @@
                                 </svg>
                                <p class="pl-3">{{ __('Dashboard') }}</p>
                             </x-nav-link>
-                        <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 shrink-0" aria-hidden="true">
-                                <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z"/>
-                            </svg>
-                            <p class="pl-3">{{ __('Profile') }}</p>
-                        </x-nav-link>
-                        <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
-                            <x-heroicon-o-plus-circle class="w-5 h-5 "/>
-                            <p class="pl-3">{{ __('Category') }}</p>
-                        </x-nav-link>
-                        <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
-                            <x-heroicon-c-user-circle class="w-5 h-5 "/>
-                            <p class="pl-3">{{ __('Users') }}</p>
-                        </x-nav-link>
-                        <x-nav-link :href="route('agricultural_product.index')" :active="request()->routeIs('agricultural_product.index')">
-                            <x-heroicon-c-shopping-bag class="w-5 h-5 "/>
-                            <p class="pl-3">{{ __('Product') }}</p>
-                        </x-nav-link>
+                        @if(auth()->user()->role_id === 2)
+                            <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 shrink-0" aria-hidden="true">
+                                    <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z"/>
+                                </svg>
+                                <p class="pl-3">{{ __('Profile') }}</p>
+                            </x-nav-link>
+                            <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
+                                <x-heroicon-o-plus-circle class="w-5 h-5 "/>
+                                <p class="pl-3">{{ __('Category') }}</p>
+                            </x-nav-link>
+                            <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                                <x-heroicon-c-user-circle class="w-5 h-5 "/>
+                                <p class="pl-3">{{ __('Users') }}</p>
+                            </x-nav-link>
+                            <x-nav-link :href="route('agricultural_product.index')" :active="request()->routeIs('agricultural_product.index')">
+                                <x-heroicon-c-shopping-bag class="w-5 h-5 "/>
+                                <p class="pl-3">{{ __('Product') }}</p>
+                            </x-nav-link>
+
+                        @endif
 
                         <x-nav-link :href="route('view.index')" :active="request()->routeIs('view.index')">
                             <x-heroicon-c-viewfinder-circle class="w-5 h-5 "/>
