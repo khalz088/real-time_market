@@ -51,7 +51,8 @@
 
                     <div class="mt-4">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" name="seasonal" value="1" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" {{ old('seasonal') ? 'checked' : '' }}>
+                            <input type="hidden" name="seasonal" value="0">
+                            <input type="checkbox" name="seasonal" value="1" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" {{ old('seasonal') ? 'checked' : '' }} onclick="this.previousSibling.value = this.checked ? '1' : '0'">
                             <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Seasonal Product') }}</span>
                         </label>
                     </div>
@@ -81,7 +82,8 @@
 
                         <div class="mt-4">
                             <label class="inline-flex items-center">
-                                <input type="checkbox" name="is_organic" value="1" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" {{ old('is_organic') ? 'checked' : '' }}>
+                                <input type="hidden" name="is_organic" value="0">
+                                <input type="checkbox" name="is_organic" value="1" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" {{ old('is_organic') ? 'checked' : '' }} onclick="this.previousSibling.value = this.checked ? '1' : '0'">
                                 <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Organic Product') }}</span>
                             </label>
                         </div>

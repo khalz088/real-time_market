@@ -18,6 +18,7 @@ class Agricultural_productController extends Controller
 
     public function store(Request $request)
     {
+
         // Validate input data
         $data = $request->validate([
             'name' => ['required'],
@@ -87,6 +88,8 @@ class Agricultural_productController extends Controller
 
     public function update(Request $request, Agricultural_product $agricultural_product)
     {
+
+
         // Validate product data
         $data = $request->validate([
             'name' => ['required'],
