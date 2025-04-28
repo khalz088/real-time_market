@@ -107,22 +107,24 @@ class Agricultural_productController extends Controller
         // Get the market price record
         $market = $agricultural_product->market_price->first();
 
-        // Calculate price change percentage and trend if retail price exists and changed
         $priceChangePercent = $market->price_change_percent; // Keep existing if no change
         $priceTrend = $market->price_trend; // Keep existing if no change
 
         if ($request->has('retail_price') && $market->retail_price != $request->retail_price) {
+
+
             // Get previous price (excluding current record)
-            $previousPrice = Market_price::where('agricultural_product_id', $agricultural_product->id)
-                ->where('id', '!=', $market->id)
-                ->latest()
-                ->first();
+            $previousPrice = $agricultural_product->market_price->first();
+
+
 
             if ($previousPrice && $previousPrice->retail_price > 0) {
                 $priceChangePercent = (($request->retail_price - $previousPrice->retail_price) / $previousPrice->retail_price) * 100;
                 $priceTrend = $priceChangePercent > 0 ? 'up' : ($priceChangePercent < 0 ? 'down' : 'stable');
+
             }
         }
+
 
         // Update the product
         $agricultural_product->update($data);
