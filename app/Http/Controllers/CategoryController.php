@@ -10,7 +10,7 @@ class CategoryController extends Controller
     public function index()
     {
        $category = Category::all();
-       return view('dashboard.category', );
+       return view('dashboard.category', ['category'=>$category] );
     }
 
     public function store(Request $request)
