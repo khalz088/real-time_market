@@ -57,6 +57,10 @@
                             <x-heroicon-c-user-circle class="w-5 h-5 "/>
                             <p class="pl-3">{{ __('users') }}</p>
                         </x-nav-link>
+                        <x-nav-link :href="route('agricultural_product.index')" :active="request()->routeIs('agricultural_product.index')">
+                            <x-heroicon-c-shopping-bag class="w-5 h-5 "/>
+                            <p class="pl-3">{{ __('product') }}</p>
+                        </x-nav-link>
 
                     </div>
                 </nav>

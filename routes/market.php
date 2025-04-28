@@ -20,3 +20,14 @@ Route::patch('/users/{user}/update-status', [\App\Http\Controllers\UserControlle
 Route::patch('/users/{user}/update-role', [\App\Http\Controllers\UserController::class, 'updateRole'])->name('users.update-role');
 
 
+
+//product routes
+
+Route::get('/products', [\App\Http\Controllers\Agricultural_productController::class, 'index'])->name('agricultural_product.index');
+Route::get('/product_add', [\App\Http\Controllers\Agricultural_productController::class, 'add'])->name('product.add');
+Route::get('/product_edit/{agricultural_product}', [\App\Http\Controllers\Agricultural_productController::class, 'show'])->name('agricultural_product.show');
+Route::patch('/product/{agricultural_product}/edit', [\App\Http\Controllers\Agricultural_productController::class, 'update'])->name('product.update');
+Route::post('/product_store', [\App\Http\Controllers\Agricultural_productController::class, 'store'])->name('product.store');
+Route::delete('/product/{agricultural_product}/destroy' , [\App\Http\Controllers\Agricultural_productController::class, 'destroy'])->name('product.destroy');
+
+

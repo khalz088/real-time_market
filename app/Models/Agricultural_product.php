@@ -13,6 +13,7 @@ class Agricultural_product extends Model
         'description',
         'measurement_unit',
         'seasonal',
+        'user_id'
     ];
 
     public function category()
