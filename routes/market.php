@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Agricultural_productController;
 use App\Http\Controllers\ViewController;
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'active'])->group(function () {
 
     // view routes
     Route::get('/view', [ViewController::class, 'index'])->name('view.index');
