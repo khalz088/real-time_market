@@ -48,6 +48,10 @@
                             </svg>
                             <p class="pl-3">{{ __('Profile') }}</p>
                         </x-nav-link>
+                        <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
+                            <x-heroicon-o-plus-circle class="w-5 h-5 "/>
+                            <p class="pl-3">{{ __('category') }}</p>
+                        </x-nav-link>
 
                     </div>
                 </nav>
