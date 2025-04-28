@@ -6,7 +6,7 @@
                 type="text"
                 x-model="search"
                 class="px-4 py-2 border rounded"
-                placeholder="Search categories..."
+                placeholder="Search product..."
             >
             <a href="{{ route('product.add') }}"> <button class="px-4 py-2 bg-blue-500 text-white rounded inline-flex items-center sm:mt-0 mt-4"> <x-heroicon-o-plus class="h-5 w-5 "/> Add</button> </a>
         </div>
@@ -36,7 +36,7 @@
                                     </a>
 
                                     <!-- Delete Button -->
-                                    <form method="POST" action="{{ route('product.destroy', $item->id) }}" onsubmit="return confirm('Are you sure you want to delete this category?')">
+                                    <form method="POST" action="{{ route('product.destroy', $item->id) }}" onsubmit="return confirm('Are you sure you want to delete this product?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 hover:underline">
