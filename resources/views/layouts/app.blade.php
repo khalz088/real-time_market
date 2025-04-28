@@ -11,9 +11,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
-        <link href="{{ asset('vendor/bladewind/css/animate.min.css') }}" rel="stylesheet" />
-        <link href="{{ asset('vendor/bladewind/css/bladewind-ui.min.css') }}" rel="stylesheet" />
+
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -54,6 +52,10 @@
                         <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
                             <x-heroicon-o-plus-circle class="w-5 h-5 "/>
                             <p class="pl-3">{{ __('category') }}</p>
+                        </x-nav-link>
+                        <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                            <x-heroicon-c-user-circle class="w-5 h-5 "/>
+                            <p class="pl-3">{{ __('users') }}</p>
                         </x-nav-link>
 
                     </div>
@@ -172,8 +174,6 @@
             </div>
 
         </div>
-
-        <script src="{{ asset('vendor/bladewind/js/helpers.js') }}"></script>
 
     </body>
 </html>
