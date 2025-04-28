@@ -51,15 +51,20 @@
                         </x-nav-link>
                         <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
                             <x-heroicon-o-plus-circle class="w-5 h-5 "/>
-                            <p class="pl-3">{{ __('category') }}</p>
+                            <p class="pl-3">{{ __('Category') }}</p>
                         </x-nav-link>
                         <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
                             <x-heroicon-c-user-circle class="w-5 h-5 "/>
-                            <p class="pl-3">{{ __('users') }}</p>
+                            <p class="pl-3">{{ __('Users') }}</p>
                         </x-nav-link>
                         <x-nav-link :href="route('agricultural_product.index')" :active="request()->routeIs('agricultural_product.index')">
                             <x-heroicon-c-shopping-bag class="w-5 h-5 "/>
-                            <p class="pl-3">{{ __('product') }}</p>
+                            <p class="pl-3">{{ __('Product') }}</p>
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('view.index')" :active="request()->routeIs('view.index')">
+                            <x-heroicon-c-viewfinder-circle class="w-5 h-5 "/>
+                            <p class="pl-3">{{ __('View') }}</p>
                         </x-nav-link>
 
                     </div>

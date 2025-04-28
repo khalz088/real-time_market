@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Agricultural_product;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,10 @@ Route::get('/dashboard', function (Request $request) {
     ]);
     $weather = $response->json();
 
+    $products = Agricultural_product::with('market_price')->paginate(9);
 
+    return view('dashboard', ['weather' => $weather , 'wilaya' => $wilaya , 'products' => $products]);
 
-    return view('dashboard', ['weather' => $weather , 'wilaya' => $wilaya]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

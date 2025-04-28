@@ -2,6 +2,9 @@
 use Illuminate\Support\Facades\Route;
 
 
+Route::middleware('auth')->group(function () {
+
+
 //category routes
 Route::get('/category', [\App\Http\Controllers\CategoryController::class, 'index'])->name('category.index');
 Route::get('/category_update/{category}', [\App\Http\Controllers\CategoryController::class, 'show'])->name('category.show');
@@ -30,3 +33,11 @@ Route::post('/product_store', [\App\Http\Controllers\Agricultural_productControl
 Route::delete('/product/{agricultural_product}/destroy' , [\App\Http\Controllers\Agricultural_productController::class, 'destroy'])->name('product.destroy');
 
 
+
+
+//view routes
+
+Route::get('/view', [\App\Http\Controllers\ViewController::class, 'index'])->name('view.index');
+
+
+});
