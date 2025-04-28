@@ -9,22 +9,29 @@ class CategoryController extends Controller
 {
     public function index()
     {
-       $category = Category::all();
-       return view('dashboard.category', ['category'=>$category] );
+       $category = Category::paginate(9);
+       return view('dashboard.category.category', ['category'=>$category] );
     }
 
+    public function add()
+    {
+        return view('dashboard.category.categoryadd');
+    }
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => ['required'],
+            'name' => ['required', 'unique:categories,name'],
         ]);
 
-        return Category::create($data);
+        Category::create($data);
+
+        return redirect()->route('category.index');
     }
 
     public function show(Category $category)
     {
-        return $category;
+
+         return view('dashboard.category.categoryedit', ['category' => $category]);
     }
 
     public function update(Request $request, Category $category)
@@ -35,13 +42,14 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return $category;
+        return redirect()->route('category.index');
     }
 
     public function destroy(Category $category)
     {
+
         $category->delete();
 
-        return response()->json();
+        return back();
     }
 }
