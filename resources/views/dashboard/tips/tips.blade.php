@@ -23,8 +23,6 @@
                 <tr class="bg-gray-200 dark:bg-gray-700 text-black dark:text-white text-center">
                     <th class="px-4 py-2 border">#</th>
                     <th class="px-4 py-2 border">Tip Name</th>
-                    <th class="px-4 py-2 border">Banner</th>
-                    <th class="px-4 py-2 border">Description</th>
                     <th class="px-4 py-2 text-center border">Actions</th>
                 </tr>
                 </thead>
@@ -34,15 +32,6 @@
                         <tr class="border-b dark:border-gray-600 text-center">
                             <td class="px-4 py-2 border">{{ $index + 1 }}</td>
                             <td class="px-4 py-2 border">{{ $item->name }}</td>
-                            <td class="px-4 py-2 border">
-                                @if($item->banner)
-                                    <img src="{{ asset('storage/' . $item->banner) }}" alt="Tip banner"
-                                         class="h-12 mx-auto">
-                                @else
-                                    No image
-                                @endif
-                            </td>
-                            <td class="px-4 py-2 border max-w-xs truncate">{{ $item->description }}</td>
                             <td class="px-4 py-2 text-center border">
                                 <div class="flex justify-center space-x-2">
                                     <!-- Edit Button -->
