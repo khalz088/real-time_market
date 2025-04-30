@@ -2,11 +2,16 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Models\Agricultural_product;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect('login');
+    $products = Agricultural_product::with('market_price')->paginate(9);
+    $response = Http::get('https://api.weatherapi.com/v1/current.json', [
+        'key' => env('WEATHER_API_KEY'),
+        'q' => 'mwanza' . ',Tanzania',
+    ]);
+    return view('welcome', ['products' => $products]);
 });
 
 Route::get('/dashboard', function (Request $request) {
@@ -20,7 +25,7 @@ Route::get('/dashboard', function (Request $request) {
 
     $products = Agricultural_product::with('market_price')->paginate(9);
 
-    return view('dashboard', ['weather' => $weather , 'wilaya' => $wilaya , 'products' => $products]);
+    return view('dashboard', ['weather' => $weather, 'wilaya' => $wilaya, 'products' => $products]);
 
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -30,5 +35,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/market.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/market.php';
