@@ -1,10 +1,21 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\Agricultural_productController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TipsController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViewController;
+use Illuminate\Support\Facades\Route;
+
+
+Route::get('tip_view', function () {
+
+    $tips = \App\Models\Tips::paginate(9);
+
+
+    return view('tipview', ['tips' => $tips]);
+})->name('tip.view');
+
 
 Route::middleware(['auth', 'active'])->group(function () {
 
@@ -35,6 +46,16 @@ Route::middleware(['auth', 'active'])->group(function () {
         Route::patch('/product/{agricultural_product}/edit', [Agricultural_productController::class, 'update'])->name('product.update');
         Route::post('/product_store', [Agricultural_productController::class, 'store'])->name('product.store');
         Route::delete('/product/{agricultural_product}/destroy', [Agricultural_productController::class, 'destroy'])->name('product.destroy');
+
+
+        //tips route
+        Route::get('tip_add', [TipsController::class, 'add'])->name('tips.add');
+        Route::get('/tips', [TipsController::class, 'index'])->name('tips.index');
+        Route::post('/tips/store', [TipsController::class, 'store'])->name('tips.store');
+        Route::get('/tip_show/{tip}', [TipsController::class, 'show'])->name('tips.show');
+        Route::put('/tip_update/{tip}', [TipsController::class, 'update'])->name('tips.update');
+        Route::delete('/tip_delete/{tip}', [TipsController::class, 'destroy'])->name('tips.destroy');
+
     });
 
 });

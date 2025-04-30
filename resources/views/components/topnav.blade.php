@@ -13,7 +13,7 @@
             <li><a href="/"
                    class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#385c35]">Home</a>
             </li>
-            <li><a href="/"
+            <li><a href="{{route('tip.view')}}"
                    class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#385c35]">Tips</a>
             </li>
 
@@ -29,7 +29,7 @@
                 <li>
                     <a href="{{ route('login') }}"
                        class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-[#385c35]">
-                        Sign up
+                        Sign in
                     </a>
                 </li>
             @endauth
@@ -60,7 +60,8 @@
             <ul class="space-y-4">
                 <li><a href="/" class="block font-medium tracking-wide text-gray-700 hover:text-[#385c35]">Home</a>
                 </li>
-                <li><a href="/" class="block font-medium tracking-wide text-gray-700 hover:text-[#385c35]">Tips</a>
+                <li><a href="{{route('tip.view')}}"
+                       class="block font-medium tracking-wide text-gray-700 hover:text-[#385c35]">Tips</a>
                 </li>
 
                 @auth
@@ -74,7 +75,7 @@
                     <li>
                         <a href="{{ route('login') }}"
                            class="block w-full text-center h-12 px-6 font-medium tracking-wide text-white bg-[#385c35] rounded shadow-md">
-                            Sign up
+                            Sign in
                         </a>
                     </li>
                 @endauth
