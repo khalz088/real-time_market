@@ -12,28 +12,50 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
 
 
+    <style>
+        body {
+            background-color: #f5f1e3;
+        }
+
+        .agrilink-green {
+            color: #385c35;
+        }
+
+        .agrilink-bg {
+            background-color: #385c35;
+        }
+
+        .agrilink-border {
+            border-color: #385c35;
+        }
+
+        .agrilink-card {
+            background-color: #faf7ee;
+        }
+    </style>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased">
-<div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    <div x-data="{ sidebarIsOpen: false }" class="relative flex w-full flex-col md:flex-row">
+<body class="font-sans antialiased text-[#385c35]">
+<div class="min-h-screen ">
+    <div x-data="{ sidebarIsOpen: false }" class="relative flex w-full flex-col md:flex-row ">
 
 
         <!-- dark overlay for when the sidebar is open on smaller screens  -->
-        <div x-cloak x-show="sidebarIsOpen" class="fixed inset-0 z-20 bg-neutral-950/10 backdrop-blur-xs md:hidden"
+        <div x-cloak x-show="sidebarIsOpen" class="fixed inset-0 z-20  backdrop-blur-xs md:hidden "
              aria-hidden="true" x-on:click="sidebarIsOpen = false" x-transition.opacity></div>
 
         <nav x-cloak
-             class="fixed left-0 z-30 flex h-svh w-60 shrink-0 flex-col border-r border-neutral-300 bg-neutral-50 p-4 transition-transform duration-300 md:w-64 md:translate-x-0 md:relative dark:border-neutral-700 dark:bg-neutral-900"
+             class="fixed left-0 z-30 flex h-svh w-60 shrink-0 flex-col border-r p-4 transition-transform duration-300 md:w-64 md:translate-x-0 md:relative   agrilink-border"
              x-bind:class="sidebarIsOpen ? 'translate-x-0' : '-translate-x-60'" aria-label="sidebar navigation">
             <!-- logo  -->
-            <a href="/" class="ml-2 w-fit text-2xl font-bold text-neutral-900 dark:text-white">
+            <a href="/" class="ml-2 w-fit text-2xl font-bold text-[#385c35]">
                 <x-application-logo/>
             </a>
 
 
             <!-- sidebar links  -->
-            <div class="flex flex-col gap-2 overflow-y-auto pb-6 pt-6">
+            <div class="flex flex-col gap-2 overflow-y-auto pb-6 pt-6 text-[#385c35] ">
 
 
                 <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -83,10 +105,10 @@
         </nav>
 
         <!-- top navbar & main content  -->
-        <div class="h-svh w-full overflow-y-auto bg-white dark:bg-neutral-950">
+        <div class="h-svh w-full overflow-y-auto ">
             <!-- top navbar  -->
             <nav
-                class="sticky top-0 z-10 flex items-center justify-between border-b border-neutral-300 bg-neutral-50 px-4 py-2 dark:border-neutral-700 dark:bg-neutral-900"
+                class="sticky top-0 z-10 flex items-center justify-between border-b border-[#385c35] agrilink-bg px-4 py-2 "
                 aria-label="top navibation bar">
 
                 <!-- sidebar toggle button for small screens  -->
@@ -153,10 +175,10 @@
                      x-on:keydown.esc.window="userDropdownIsOpen = false">
                     <button type="button"
                             class="flex w-full items-center rounded-sm gap-2 p-2 text-left text-neutral-600 hover:bg-black/5 hover:text-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:outline-white"
-                            x-bind:class="userDropdownIsOpen ? 'bg-black/10 dark:bg-white/10' : ''" aria-haspopup="true"
+                            x-bind:class="userDropdownIsOpen ? 'bg-[#385c35] ' : ''" aria-haspopup="true"
                             x-on:click="userDropdownIsOpen = ! userDropdownIsOpen"
                             x-bind:aria-expanded="userDropdownIsOpen">
-                        <x-heroicon-c-user class="h-10 w-10 dark:text-white text-black"/>
+                        <x-heroicon-c-user class="h-10 w-10 text-white "/>
                         <div class="hidden md:flex flex-col">
                             <span
                                 class="text-sm font-bold text-neutral-900 dark:text-white">{{auth()->user()->name}}</span>
@@ -167,7 +189,7 @@
 
                     <!-- menu -->
                     <div x-cloak x-show="userDropdownIsOpen"
-                         class="absolute top-14 right-0 z-20 h-fit w-48 border divide-y divide-neutral-300 border-neutral-300 bg-white dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-950 rounded-sm"
+                         class="absolute top-14 right-0 z-20 h-fit w-48 border divide-y divide-[#385c35] border-[#385c35] bg-[#f5f1e3]  rounded-sm"
                          role="menu" x-on:click.outside="userDropdownIsOpen = false"
                          x-on:keydown.down.prevent="$focus.wrap().next()"
                          x-on:keydown.up.prevent="$focus.wrap().previous()" x-transition="" x-trap="userDropdownIsOpen">
@@ -175,7 +197,8 @@
                         <div class="flex flex-col py-1.5">
                             <a
                                 href="{{route('profile.edit')}}"
-                                class="flex items-center gap-2 px-2 py-1.5 text-sm font-medium text-neutral-600 underline-offset-2 hover:bg-black/5 hover:text-neutral-900 focus-visible:underline focus:outline-hidden dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-white"
+                                class="flex items-center gap-2 px-2 py-1.5 text-sm font-medium underline-offset-2  focus-visible:underline focus:outline-hidden text-[#385c35]
+                                 "
                                 role="menuitem">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                      class="size-5 shrink-0" aria-hidden="true">
@@ -191,7 +214,7 @@
                                 @csrf
 
                                 <a :href="route('logout')"
-                                   class="flex items-center gap-2 px-2 py-1.5 text-sm font-medium text-neutral-600 underline-offset-2 hover:bg-black/5 hover:text-neutral-900 focus-visible:underline focus:outline-none dark:text-neutral-300 dark:hover:bg-white/5 dark:hover:text-white"
+                                   class="flex items-center gap-2 px-2 py-1.5 text-sm font-medium underline-offset-2 focus-visible:underline focus:outline-none text-[#385c35]"
 
                                    onclick="event.preventDefault();
                                                 this.closest('form').submit();">

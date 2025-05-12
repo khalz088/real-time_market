@@ -5,34 +5,34 @@
             <input
                 type="text"
                 x-model="search"
-                class="px-4 py-2 border rounded dark:bg-gray-800 dark:text-white"
+                class="px-4 py-2 border rounded "
                 placeholder="Search tips..."
             >
             <a href="{{ route('tips.add') }}">
-                <button class="px-4 py-2 bg-blue-500 text-white rounded inline-flex items-center sm:mt-0 mt-4">
-                    <x-heroicon-o-plus class="h-5 w-5"/>
-                    Add Tip
-                </button>
+                <x-primary-button class="inline-flex items-center">
+                    <x-heroicon-o-plus class="h-5 w-5 "/>
+                    Add
+                </x-primary-button>
             </a>
         </div>
 
         <!-- Table -->
-        <div class="overflow-x-auto p-4 dark:text-white">
-            <table class="min-w-full table-auto border-collapse border border-gray-300 dark:border-gray-600">
+        <div class="overflow-x-auto p-4 text-black">
+            <table class="min-w-full table-auto border-collapse border border-[#385c35]">
                 <thead>
-                <tr class="bg-gray-200 dark:bg-gray-700 text-black dark:text-white text-center">
-                    <th class="px-4 py-2 border">#</th>
-                    <th class="px-4 py-2 border">Tip Name</th>
-                    <th class="px-4 py-2 text-center border">Actions</th>
+                <tr class="bg-gray-200 text-black text-center">
+                    <th class="px-4 py-2 border border-[#385c35]">#</th>
+                    <th class="px-4 py-2 border border-[#385c35]">Tip Name</th>
+                    <th class="px-4 py-2 text-center border border-[#385c35]">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($tips as $index => $item)
                     <template x-if="search === '' || '{{ $item->name }}'.toLowerCase().includes(search.toLowerCase())">
-                        <tr class="border-b dark:border-gray-600 text-center">
-                            <td class="px-4 py-2 border">{{ $index + 1 }}</td>
-                            <td class="px-4 py-2 border">{{ $item->name }}</td>
-                            <td class="px-4 py-2 text-center border">
+                        <tr class="border-b border-[#385c35] text-center">
+                            <td class="px-4 py-2 border border-[#385c35] ">{{ $index + 1 }}</td>
+                            <td class="px-4 py-2 border border-[#385c35]">{{ $item->name }}</td>
+                            <td class="px-4 py-2 text-center border border-[#385c35]">
                                 <div class="flex justify-center space-x-2">
                                     <!-- Edit Button -->
                                     <a href="{{ route('tips.show', $item->id) }}" class="text-blue-500 hover:underline">
@@ -58,7 +58,7 @@
         </div>
 
         <!-- Pagination controls -->
-        <div class="mt-4 p-4 flex justify-between items-center dark:text-white">
+        <div class="mt-4 p-4 flex justify-between items-center ">
             <span>
                 Showing {{ ($tips->currentPage() - 1) * $tips->perPage() + 1 }} -
                 {{ min($tips->currentPage() * $tips->perPage(), $tips->total()) }} of {{ $tips->total() }} records

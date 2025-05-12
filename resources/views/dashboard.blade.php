@@ -2,7 +2,7 @@
     <div class="mx-auto p-6">
         <!-- Wilaya Selector Form -->
         <form method="GET" action="{{ route('dashboard') }}" class="mb-4">
-            <label for="wilaya" class="block mb-1 font-medium dark:text-white text-black">Chagua Wilaya:</label>
+            <label for="wilaya" class="block mb-1 font-medium  text-[#385c35]">Chagua Wilaya:</label>
             <select name="wilaya" id="wilaya" onchange="this.form.submit()" class="border p-2 rounded">
                 @foreach(['Nyamagana','Ilemela','Magu','Sengerema','Ukerewe','Misungwi','Kwimba'] as $item)
                     <option value="{{ $item }}" {{ $item == $wilaya ? 'selected' : '' }}>{{ $item }}</option>
@@ -11,7 +11,7 @@
         </form>
 
         <!-- Weather Card -->
-        <div class="bg-white rounded-xl shadow p-6 border border-black dark:border-white mb-6">
+        <div class="rounded-xl shadow p-6 border border-[#385c35] mb-6">
             <h2 class="text-xl font-semibold mb-2">Hali ya Hewa - {{ $wilaya }}</h2>
             @if(isset($weather['current']))
                 <div class="flex items-center gap-4">
@@ -78,7 +78,7 @@
                  @mouseenter="stopAutoSlide()"
                  @mouseleave="startAutoSlide()">
 
-                <h2 class="text-xl font-semibold mb-4 dark:text-white text-center">Bidhaa Zinazopendwa</h2>
+                <h2 class="text-xl font-semibold mb-4  text-center">Bidhaa Zinazopendwa</h2>
 
                 <div class="relative overflow-hidden h-44">
                     <template x-for="(group, groupIndex) in products" :key="groupIndex">
@@ -93,26 +93,26 @@
                             class="absolute top-0 left-0 w-full grid grid-cols-1 lg:grid-cols-3 gap-4"
                         >
                             <template x-for="product in group" :key="product.id">
-                                <div class="bg-white rounded-lg shadow-md p-4 border border-gray-200">
-                                    <h3 class="font-medium text-lg text-gray-800" x-text="product.name"></h3>
-                                    <p class="text-gray-600" x-text="product.category.name"></p>
+                                <div class="bg-white rounded-lg shadow-md p-4 border border-[#385c35]">
+                                    <h3 class="font-medium text-lg text-[#385c35]" x-text="product.name"></h3>
+                                    <p class="text-[#385c35]" x-text="product.category.name"></p>
 
                                     <template x-if="product.market_price && product.market_price.length > 0">
                                         <div class="mt-2 space-y-2">
                                             <div class="flex justify-between items-center">
-                                                <span class="text-gray-500">Bei ya Rejareja:</span>
-                                                <span class="font-medium text-gray-800"
+                                                <span class="text-[#385c35]">Bei ya Rejareja:</span>
+                                                <span class="font-medium text-[#385c35]"
                                                       x-text="'TZS ' + product.market_price[0].retail_price.toLocaleString('en-US')">
                                     </span>
                                             </div>
                                             <div class="flex justify-between items-center">
-                                                <span class="text-gray-500">Bei ya Jumla:</span>
-                                                <span class="font-medium text-gray-800"
+                                                <span class="text-[#385c35]">Bei ya Jumla:</span>
+                                                <span class="font-medium "
                                                       x-text="'TZS ' + product.market_price[0].wholesale_price.toLocaleString('en-US')">
                                     </span>
                                             </div>
                                             <div class="flex justify-between items-center">
-                                                <span class="text-gray-500">Mwenendo:</span>
+                                                <span>Mwenendo:</span>
                                                 <span class="flex items-center">
                                     <template x-if="product.market_price[0].price_trend === 'up'">
                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +163,7 @@
                         <button
                             @click="currentIndex = index"
                             class="w-3 h-3 rounded-full"
-                            :class="currentIndex === index ? 'bg-blue-600' : 'bg-gray-300'"
+                            :class="currentIndex === index ? 'bg-[#385c35]' : 'bg-gray-300'"
                         ></button>
                     </template>
                 </div>

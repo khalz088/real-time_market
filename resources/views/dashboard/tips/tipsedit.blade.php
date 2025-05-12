@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="p-4 sm:p-8 bg-white dark:bg-neutral-950 dark:border-white border border-neutral-950 rounded-lg">
+    <div class="p-4 sm:p-8  border border-[#385c35] rounded-lg">
         <div class="max-w-xl">
             <form method="post" action="{{ route('tips.update', $tip->id) }}" class="mt-6 space-y-6"
                   enctype="multipart/form-data">
@@ -8,7 +8,7 @@
 
                 <!-- Name Field -->
                 <div>
-                    <x-input-label for="name" class="text-white" :value="__('Tip Name')"/>
+                    <x-input-label for="name" class="text-black" :value="__('Tip Name')"/>
                     <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                   :value="old('name', $tip->name)" required autofocus/>
                     <x-input-error class="mt-2" :messages="$errors->get('name')"/>
@@ -16,7 +16,7 @@
 
                 <!-- Banner Image Field -->
                 <div>
-                    <x-input-label for="banner" class="text-white" :value="__('Banner Image')"/>
+                    <x-input-label for="banner" class="text-black" :value="__('Banner Image')"/>
 
                     <!-- Current Image Preview -->
                     @if($tip->banner)
@@ -28,7 +28,7 @@
                     @endif
 
                     <input id="banner" name="banner" type="file"
-                           class="block mt-1 w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
+                           class="block mt-1 w-full text-black file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-black hover:file:bg-blue-600"
                            accept="image/jpeg,image/png,image/jpg,image/gif">
                     <x-input-error class="mt-2" :messages="$errors->get('banner')"/>
                     <p class="mt-1 text-sm text-gray-400">Leave empty to keep current image (Max 2MB: JPEG, PNG, JPG,
@@ -37,22 +37,22 @@
 
                 <!-- Description Field -->
                 <div>
-                    <x-input-label for="description" class="text-white" :value="__('Description')"/>
+                    <x-input-label for="description" class="text-black" :value="__('Description')"/>
                     <textarea id="description" name="description" rows="4"
-                              class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                              class="block mt-1 w-full rounded-md shadow-sm text-black "
                               required>{{ old('description', $tip->description) }}</textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('description')"/>
                 </div>
 
                 <!-- New Image Preview -->
                 <div id="image-preview" class="hidden mt-4">
-                    <x-input-label class="text-white" :value="__('New Banner Preview')"/>
+                    <x-input-label class="text-black" :value="__('New Banner Preview')"/>
                     <img id="preview" class="mt-2 rounded-lg max-h-48" src="#" alt="Banner preview"/>
                 </div>
 
                 <div class="flex items-center gap-4">
                     <x-primary-button>{{ __('Update Tip') }}</x-primary-button>
-                    <a href="{{ route('tips.index') }}" class="text-white hover:underline">Cancel</a>
+                    <a href="{{ route('tips.index') }}" class=" hover:underline">Cancel</a>
                 </div>
             </form>
         </div>
