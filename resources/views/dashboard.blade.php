@@ -10,6 +10,7 @@
             </select>
         </form>
 
+
         <!-- Weather Card -->
         <div class="rounded-xl shadow p-6 border border-[#385c35] mb-6">
             <h2 class="text-xl font-semibold mb-2">Hali ya Hewa - {{ $wilaya }}</h2>
