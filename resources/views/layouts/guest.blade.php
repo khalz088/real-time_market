@@ -55,8 +55,8 @@
                         </div>
 
                         <div class="mt-auto mb-4">
-                            <div class="text-xs text-white font-medium font-semibold">Soko La Mazao</div>
-                            <div class="text-xs text-white font-medium">Hali ya hewa jhasdakjs dajsdyhjkasyd kjasdh as
+                            <div class="text-xs text-white font-medium ">Soko La Mazao</div>
+                            <div class="text-xs text-white font-medium">Hali ya hewa
                             </div>
                         </div>
                         <div class="mt-auto">
@@ -83,13 +83,14 @@
 
             </div>
             <div class="sm:justify-center  flex flex-col   items-center ">
-                <div>
-                    <a href="/">
-                        <x-application-logo/>
-                    </a>
-                </div>
+
                 <div
-                    class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white  shadow-md overflow-hidden sm:rounded-lg border  border-black ">
+                    class="w-full sm:max-w-md px-6 py-4 bg-white  shadow-md overflow-hidden sm:rounded-lg border  border-black ">
+                    <div class="justify-center flex">
+                        <a href="/">
+                            <x-application-logo/>
+                        </a>
+                    </div>
                     {{ $slot }}
                 </div>
             </div>

@@ -42,14 +42,14 @@
 
 
         <!-- dark overlay for when the sidebar is open on smaller screens  -->
-        <div x-cloak x-show="sidebarIsOpen" class="fixed inset-0 z-20  backdrop-blur-xs md:hidden "
+        <div x-cloak x-show="sidebarIsOpen" class="fixed inset-0 z-20  backdrop-blur-xs md:hidden  "
              aria-hidden="true" x-on:click="sidebarIsOpen = false" x-transition.opacity></div>
 
         <nav x-cloak
-             class="fixed left-0 z-30 flex h-svh w-60 shrink-0 flex-col border-r p-4 transition-transform duration-300 md:w-64 md:translate-x-0 md:relative   agrilink-border"
+             class="fixed left-0 z-30 flex h-svh w-60 shrink-0 flex-col border-r p-4 transition-transform duration-300 bg-[#f5f1e3] md:w-64 md:translate-x-0 md:relative   agrilink-border"
              x-bind:class="sidebarIsOpen ? 'translate-x-0' : '-translate-x-60'" aria-label="sidebar navigation">
             <!-- logo  -->
-            <a href="/" class="ml-2 w-fit text-2xl font-bold text-[#385c35]">
+            <a href="/" class="ml-10 w-fit font-bold text-[#385c35] ">
                 <x-application-logo/>
             </a>
 

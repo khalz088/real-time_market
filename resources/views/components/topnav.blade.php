@@ -5,7 +5,7 @@
     <div class="relative flex items-center justify-between">
         <!-- Logo -->
         <a href="/" aria-label="Company" title="Company" class="inline-flex items-center">
-            <p class="font-playwrite sm:text-3xl font-semibold text-[#385c35]">Logo</p>
+            <x-application-logo2/>
         </a>
 
         <!-- Desktop Menu -->
