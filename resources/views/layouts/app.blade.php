@@ -93,6 +93,11 @@
                         <x-heroicon-c-pencil-square class="w-5 h-5 "/>
                         <p class="pl-3">{{ __('Tips') }}</p>
                     </x-nav-link>
+                    <x-nav-link :href="route('market-prices.reports.index')"
+                                :active="request()->routeIs('market-prices.reports.index')">
+                        <x-heroicon-c-book-open class="h-5 w-5"/>
+                        <p class="pl-3">{{ __('Reports') }}</p>
+                    </x-nav-link>
 
                 @endif
 

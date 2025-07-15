@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Agricultural_productController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MarketPriceReportController;
 use App\Http\Controllers\TipsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViewController;
@@ -24,6 +25,13 @@ Route::middleware(['auth', 'active'])->group(function () {
 
     // routes only for role_id == 2
     Route::middleware('role:2')->group(function () {
+
+        Route::prefix('market-prices')->group(function () {
+            Route::prefix('reports')->group(function () {
+                Route::get('/', [MarketPriceReportController::class, 'index'])->name('market-prices.reports.index');
+                Route::post('/generate', [MarketPriceReportController::class, 'generate'])->name('market-prices.reports.generate');
+            });
+        });
 
         // Category routes
         Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
