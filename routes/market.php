@@ -55,6 +55,14 @@ Route::middleware(['auth', 'active'])->group(function () {
         Route::post('/product_store', [Agricultural_productController::class, 'store'])->name('product.store');
         Route::delete('/product/{agricultural_product}/destroy', [Agricultural_productController::class, 'destroy'])->name('product.destroy');
 
+        //market route
+        Route::get('market_add', [\App\Http\Controllers\MarketController::class, 'add'])->name('market.add');
+        Route::get('/market', [\App\Http\Controllers\MarketController::class, 'index'])->name('market.index');
+        Route::post('/market/store', [\App\Http\Controllers\MarketController::class, 'store'])->name('market.store');
+        Route::get('/market_show/{market}', [\App\Http\Controllers\MarketController::class, 'show'])->name('market.show');
+        Route::put('/market_update/{market}', [\App\Http\Controllers\MarketController::class, 'update'])->name('market.update');
+        Route::delete('/market_delete/{market}', [\App\Http\Controllers\MarketController::class, 'destroy'])->name('market.destroy');
+
 
         //tips route
         Route::get('tip_add', [TipsController::class, 'add'])->name('tips.add');

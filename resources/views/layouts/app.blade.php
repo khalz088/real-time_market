@@ -79,6 +79,10 @@
                         <x-heroicon-o-plus-circle class="w-5 h-5 "/>
                         <p class="pl-3">{{ __('Category') }}</p>
                     </x-nav-link>
+                    <x-nav-link :href="route('market.index')" :active="request()->routeIs('market.index')">
+                        <x-heroicon-c-shopping-cart class="w-5 h-5 "/>
+                        <p class="pl-3">{{ __('Market') }}</p>
+                    </x-nav-link>
                     <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
                         <x-heroicon-c-user-circle class="w-5 h-5 "/>
                         <p class="pl-3">{{ __('Users') }}</p>

@@ -85,24 +85,25 @@
                                     <div class="flex justify-center space-x-2">
                                         <x-primary-button
                                             @click="openModal = true; selectedProduct = {
-                                                id: {{ $product->id }},
-                                                name: '{{ addslashes($product->name) }}',
-                                                category: '{{ addslashes($product->category->name) }}',
-                                                description: `{{ addslashes($product->description) }}`,
-                                                measurement_unit: '{{ $product->measurement_unit }}',
-                                                seasonal: {{ $product->seasonal ? 'true' : 'false' }},
-                                                retail_price: {{ $marketPrice->retail_price ?? 0 }},
-                                                wholesale_price: {{ $marketPrice->wholesale_price ?? 0 }},
-
-                                                is_organic: {{ $marketPrice->is_organic ? 'true' : 'false' }},
-                                                price_trend: '{{ $marketPrice->price_trend ?? 'stable' }}',
-                                                price_change_percent: {{ $marketPrice->price_change_percent ?? 0 }}
-                                            }"
+                                        id: {{ $product->id }},
+                                        name: '{{ addslashes($product->name) }}',
+                                        category: '{{ addslashes($product->category->name) }}',
+                                        description: `{{ addslashes($product->description) }}`,
+                                        measurement_unit: '{{ $product->measurement_unit }}',
+                                        seasonal: {{ $product->seasonal ? 'true' : 'false' }},
+                                        retail_price: {{ $marketPrice->retail_price ?? 0 }},
+                                        wholesale_price: {{ $marketPrice->wholesale_price ?? 0 }},
+                                        is_organic: {{ $marketPrice->is_organic ? 'true' : 'false' }},
+                                        price_trend: '{{ $marketPrice->price_trend ?? 'stable' }}',
+                                        price_change_percent: {{ $marketPrice->price_change_percent ?? 0 }},
+                                        market_name: '{{ addslashes($product->market->name ?? 'N/A') }}'
+                                    }"
                                         >
                                             More
                                         </x-primary-button>
                                     </div>
                                 </td>
+
                             </tr>
                         </template>
                     @endforeach
@@ -219,7 +220,10 @@
                                x-text="selectedProduct ? 'TZS ' + selectedProduct.wholesale_price.toLocaleString('en-US', {minimumFractionDigits: 2}) : ''">
                             </p>
                         </div>
-                       
+                        <div>
+                            <p class="text-sm text-gray-500 ">Market Name</p>
+                            <p class="text-gray-900 " x-text="selectedProduct?.market_name || 'N/A'"></p>
+                        </div>
                         <div>
                             <p class="text-sm text-gray-500 ">Organic Certification</p>
                             <p class="text-gray-900 "

@@ -9,13 +9,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Agricultural_product extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'category_id',
         'description',
         'measurement_unit',
         'seasonal',
-        'user_id'
+        'user_id',
+        'market_id'
     ];
 
     public function category()
@@ -31,5 +33,10 @@ class Agricultural_product extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function market(): BelongsTo
+    {
+        return $this->belongsTo(Market::class);
     }
 }

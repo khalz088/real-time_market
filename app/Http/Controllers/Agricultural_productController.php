@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agricultural_product;
 use App\Models\Category;
+use App\Models\Market;
 use App\Models\Market_price;
 use Illuminate\Http\Request;
 
@@ -11,18 +12,19 @@ class Agricultural_productController extends Controller
 {
     public function index()
     {
-       $product =Agricultural_product::paginate(9);
+        $products = Agricultural_product::with(['category', 'market', 'market_price'])
+            ->paginate(9);
 
-       return view('dashboard.product.product',['product'=>$product]);
+        return view('dashboard.product.product', ['product' => $products]);
     }
 
     public function store(Request $request)
     {
-
         // Validate input data
         $data = $request->validate([
             'name' => ['required'],
             'category_id' => ['required', 'exists:categories,id'],
+            'market_id' => ['required', 'exists:markets,id'],
             'description' => ['required'],
             'measurement_unit' => ['required'],
             'seasonal' => ['boolean'],
@@ -30,76 +32,81 @@ class Agricultural_productController extends Controller
 
         $marketData = $request->validate([
             'wholesale_price' => ['nullable', 'numeric'],
-            'retail_price' => ['required', 'numeric'], // Retail price is required for calculation
+            'retail_price' => ['required', 'numeric'],
             'quantity_available' => ['required', 'numeric'],
             'is_organic' => ['boolean'],
         ]);
 
-        // Get the latest market price for this product (if exists)
+        // Get the latest market price for this product
         $latestPrice = Market_price::where('agricultural_product_id', $request->category_id)
             ->latest()
             ->first();
 
-        // Calculate price_change_percent and determine price_trend
+        // Calculate price change and trend
         $priceChangePercent = 0;
-        $priceTrend = 'stable'; // Default trend
+        $priceTrend = 'stable';
 
         if ($latestPrice && $latestPrice->retail_price > 0) {
             $priceChangePercent = (($request->retail_price - $latestPrice->retail_price) / $latestPrice->retail_price) * 100;
-
-            // Determine trend based on percentage change
-            if ($priceChangePercent > 0) {
-                $priceTrend = 'up'; // Increasing
-            } elseif ($priceChangePercent < 0) {
-                $priceTrend = 'down'; // Decreasing
-            }
+            $priceTrend = $priceChangePercent > 0 ? 'up' : ($priceChangePercent < 0 ? 'down' : 'stable');
         }
 
         // Create the product
         $product = Agricultural_product::create([
-            'user_id' => auth()->user()->id,
-            ...$data]);
+            'user_id' => auth()->id(),
+            ...$data
+        ]);
 
-        // Create market price with auto-calculated fields
+        // Create market price
         Market_price::create([
             'agricultural_product_id' => $product->id,
             'price_change_percent' => round($priceChangePercent, 2),
             'price_trend' => $priceTrend,
-            'user_id' => auth()->user()->id,
-            ...$marketData // Include other validated fields
+            'user_id' => auth()->id(),
+            ...$marketData
         ]);
 
         return redirect()->route('agricultural_product.index');
     }
+
     public function add()
     {
         $categories = Category::all();
-        return view('dashboard.product.productadd', ['categories' => $categories]);
+        $markets = Market::all();
+
+        return view('dashboard.product.productadd', [
+            'categories' => $categories,
+            'markets' => $markets
+        ]);
     }
 
     public function show(Agricultural_product $agricultural_product)
     {
-        $category = Category::all();
+        $categories = Category::all();
+        $markets = Market::all();
+        $marketPrice = $agricultural_product->market_price->first();
 
-        $market = $agricultural_product->market_price->first();
-
-        return view('dashboard.product.productedit', ['categories' => $category, 'market' => $market , 'product' => $agricultural_product]);
+        return view('dashboard.product.productedit', [
+            'categories' => $categories,
+            'markets' => $markets,
+            'market' => $marketPrice,
+            'product' => $agricultural_product
+        ]);
     }
 
     public function update(Request $request, Agricultural_product $agricultural_product)
     {
-
-
         // Validate product data
         $data = $request->validate([
             'name' => ['required'],
-            'category_id' => ['required', 'exists:categories,id'], // Added ,id
+            'category_id' => ['required', 'exists:categories,id'],
+            'market_id' => ['required', 'exists:markets,id'],
             'description' => ['required'],
             'measurement_unit' => ['required'],
             'seasonal' => ['boolean'],
         ]);
 
-        // Validate market data (without calculated fields)
+        // Validate market data
         $marketData = $request->validate([
             'wholesale_price' => ['nullable', 'numeric'],
             'retail_price' => ['nullable', 'numeric'],
@@ -108,32 +115,29 @@ class Agricultural_productController extends Controller
         ]);
 
         // Get the market price record
-        $market = $agricultural_product->market_price->first();
+        $marketPrice = $agricultural_product->market_price->first();
 
-        $priceChangePercent = $market->price_change_percent; // Keep existing if no change
-        $priceTrend = $market->price_trend; // Keep existing if no change
+        // Calculate price changes if retail price was modified
+        $priceChangePercent = $marketPrice->price_change_percent;
+        $priceTrend = $marketPrice->price_trend;
 
-        if ($request->has('retail_price') && $market->retail_price != $request->retail_price) {
-
-
-            // Get previous price (excluding current record)
-            $previousPrice = $agricultural_product->market_price->first();
-
-
+        if ($request->has('retail_price') && $marketPrice->retail_price != $request->retail_price) {
+            $previousPrice = Market_price::where('agricultural_product_id', $agricultural_product->id)
+                ->where('id', '!=', $marketPrice->id)
+                ->latest()
+                ->first();
 
             if ($previousPrice && $previousPrice->retail_price > 0) {
                 $priceChangePercent = (($request->retail_price - $previousPrice->retail_price) / $previousPrice->retail_price) * 100;
                 $priceTrend = $priceChangePercent > 0 ? 'up' : ($priceChangePercent < 0 ? 'down' : 'stable');
-
             }
         }
-
 
         // Update the product
         $agricultural_product->update($data);
 
-        // Update the market price with calculated fields
-        $market->update(array_merge($marketData, [
+        // Update the market price
+        $marketPrice->update(array_merge($marketData, [
             'price_change_percent' => round($priceChangePercent, 2),
             'price_trend' => $priceTrend
         ]));
@@ -143,11 +147,7 @@ class Agricultural_productController extends Controller
 
     public function destroy(Agricultural_product $agricultural_product)
     {
-        $market =$agricultural_product->market_price->first();
-
-        $market->delete();
-
-
+        $agricultural_product->market_price()->delete();
         $agricultural_product->delete();
 
         return redirect()->route('agricultural_product.index');

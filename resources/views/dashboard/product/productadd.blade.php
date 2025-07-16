@@ -1,11 +1,11 @@
 <x-app-layout>
-    <div class="p-4 sm:p-8 bg-white  border border-[#385c35] rounded-lg">
+    <div class="p-4 sm:p-8 bg-white border border-[#385c35] rounded-lg">
         <div class="">
             <form method="post" action="{{ route('product.store') }}" class="mt-6 space-y-6">
                 @csrf
 
                 <!-- Agricultural Product Fields -->
-                <div class="grid sm:grid-cols-2 grid-cols-1 gap-5 ">
+                <div class="grid sm:grid-cols-2 grid-cols-1 gap-5">
                     <div class="mt-4">
                         <x-input-label for="name" :value="__('Product Name')"/>
                         <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
@@ -16,21 +16,40 @@
                     <div class="mt-4">
                         <x-input-label for="category_id" :value="__('Category')"/>
                         <select id="category_id" name="category_id"
-                                class="block  w-full rounded-md  text-black focus:border-indigo-500  focus:ring-indigo-500  shadow-sm"
+                                class="block w-full rounded-md text-black focus:border-indigo-500 focus:ring-indigo-500 shadow-sm"
                                 required>
                             <option value="">Select a category</option>
                             @foreach($categories as $category)
                                 <option
-                                    value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                    value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
                             @endforeach
                         </select>
                         <x-input-error :messages="$errors->get('category_id')" class="mt-2"/>
                     </div>
 
+                    <!-- New Market Selection Field -->
+                    <div class="mt-4">
+                        <x-input-label for="market_id" :value="__('Market')"/>
+                        <select id="market_id" name="market_id"
+                                class="block w-full rounded-md text-black focus:border-indigo-500 focus:ring-indigo-500 shadow-sm"
+                                required>
+                            <option value="">Select a market</option>
+                            @foreach($markets as $market)
+                                <option
+                                    value="{{ $market->id }}" {{ old('market_id') == $market->id ? 'selected' : '' }}>
+                                    {{ $market->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('market_id')" class="mt-2"/>
+                    </div>
+
                     <div class="mt-4">
                         <x-input-label for="description" :value="__('Description')"/>
                         <textarea id="description" name="description"
-                                  class="block mt-1 w-full rounded-md  text-black    shadow-sm"
+                                  class="block mt-1 w-full rounded-md text-black shadow-sm"
                                   required>{{ old('description') }}</textarea>
                         <x-input-error :messages="$errors->get('description')" class="mt-2"/>
                     </div>
@@ -69,17 +88,17 @@
                         <label class="inline-flex items-center">
                             <input type="hidden" name="seasonal" value="0">
                             <input type="checkbox" name="seasonal" value="1"
-                                   class="rounded  text-[#385c35] shadow-sm "
-                                   {{ old('seasonal') ? 'checked' : '' }} onclick="this.previousSibling.value = this.checked ? '1' : '0'">
-                            <span
-                                class="ml-2 text-sm text-black">{{ __('Seasonal Product') }}</span>
+                                   class="rounded text-[#385c35] shadow-sm"
+                                   {{ old('seasonal') ? 'checked' : '' }}
+                                   onclick="this.previousSibling.value = this.checked ? '1' : '0'">
+                            <span class="ml-2 text-sm text-black">{{ __('Seasonal Product') }}</span>
                         </label>
                     </div>
                 </div>
 
                 <!-- Market Price Fields -->
-                <div class="mt-6 pt-6 border-t border-[#385c35] ">
-                    <h3 class="text-lg font-medium text-gray-900 ">{{ __('Market Information') }}</h3>
+                <div class="mt-6 pt-6 border-t border-[#385c35]">
+                    <h3 class="text-lg font-medium text-gray-900">{{ __('Market Information') }}</h3>
                     <div class="grid sm:grid-cols-2 grid-cols-1 gap-5 w-auto">
                         <div class="mt-4">
                             <x-input-label for="wholesale_price" :value="__('Wholesale Price')"/>
@@ -96,8 +115,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <x-input-label for="quantity_available" class="text-white"
-                                           :value="__('Quantity Available')"/>
+                            <x-input-label for="quantity_available" :value="__('Quantity Available')"/>
                             <x-text-input id="quantity_available" class="block mt-1 w-full" type="number"
                                           name="quantity_available" :value="old('quantity_available')" required/>
                             <x-input-error :messages="$errors->get('quantity_available')" class="mt-2"/>
@@ -107,13 +125,12 @@
                             <label class="inline-flex items-center">
                                 <input type="hidden" name="is_organic" value="0">
                                 <input type="checkbox" name="is_organic" value="1"
-                                       class="rounded  text-[#385c35] shadow-sm "
-                                       {{ old('is_organic') ? 'checked' : '' }} onclick="this.previousSibling.value = this.checked ? '1' : '0'">
-                                <span
-                                    class="ml-2 text-sm text-black">{{ __('Organic Product') }}</span>
+                                       class="rounded text-[#385c35] shadow-sm"
+                                       {{ old('is_organic') ? 'checked' : '' }}
+                                       onclick="this.previousSibling.value = this.checked ? '1' : '0'">
+                                <span class="ml-2 text-sm text-black">{{ __('Organic Product') }}</span>
                             </label>
                         </div>
-
                     </div>
                 </div>
 

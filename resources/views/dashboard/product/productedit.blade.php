@@ -145,6 +145,23 @@
                             </div>
                         @endif
                     </div>
+                    <div class="mt-4">
+                        <x-input-label for="market_id" :value="__('Market')"/>
+                        <select id="market_id" name="market_id"
+                                class="block w-full rounded-md text-black focus:border-indigo-500 focus:ring-indigo-500 shadow-sm"
+                                required>
+                            <option value="">Select a market</option>
+                            @foreach($markets as $market)
+                                <option
+                                    value="{{ $market->id }}"
+                                    {{ old('market_id', $product->market_id ?? '') == $market->id ? 'selected' : '' }}>
+                                    {{ $market->name }}
+                                </option>
+
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('market_id')" class="mt-2"/>
+                    </div>
                 </div>
 
                 <div class="flex items-center gap-4 mt-6">
