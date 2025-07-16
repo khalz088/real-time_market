@@ -93,7 +93,7 @@
                                                 seasonal: {{ $product->seasonal ? 'true' : 'false' }},
                                                 retail_price: {{ $marketPrice->retail_price ?? 0 }},
                                                 wholesale_price: {{ $marketPrice->wholesale_price ?? 0 }},
-                                                quantity_available: {{ $marketPrice->quantity_available ?? 0 }},
+
                                                 is_organic: {{ $marketPrice->is_organic ? 'true' : 'false' }},
                                                 price_trend: '{{ $marketPrice->price_trend ?? 'stable' }}',
                                                 price_change_percent: {{ $marketPrice->price_change_percent ?? 0 }}
@@ -219,12 +219,7 @@
                                x-text="selectedProduct ? 'TZS ' + selectedProduct.wholesale_price.toLocaleString('en-US', {minimumFractionDigits: 2}) : ''">
                             </p>
                         </div>
-                        <div>
-                            <p class="text-sm text-gray-500 ">Available Quantity</p>
-                            <p class="text-gray-900 "
-                               x-text="selectedProduct ? selectedProduct.quantity_available.toLocaleString('en-US') + ' ' + selectedProduct.measurement_unit : ''">
-                            </p>
-                        </div>
+                       
                         <div>
                             <p class="text-sm text-gray-500 ">Organic Certification</p>
                             <p class="text-gray-900 "
